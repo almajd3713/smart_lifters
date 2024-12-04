@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/app/router/router.dart';
 import 'package:smart_lifters/src/app/theme/theme.dart';
 
 class App extends StatelessWidget {
@@ -11,11 +12,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      initialRoute: '/home',
+      onGenerateRoute: (settings) => generateRoute(settings),
     );
   }
 }
