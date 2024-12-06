@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/content/account/account.dart';
 import 'package:smart_lifters/src/content/favorites/favorites.dart';
 import 'package:smart_lifters/src/content/home/home.dart';
 import 'package:smart_lifters/src/content/workout/workout.dart';
@@ -13,15 +14,15 @@ class ContentController extends StatefulWidget {
 }
 
 class ContentControllerState extends State<ContentController> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 3;
   final List<Widget> _navbarPages = [
     const ScreenHome(),
     const ScreenWorkout(),
     const ScreenFavorites(),
-    const ScreenHome(),
+    const ScreenAccount(),
   ];
 
-  final PageController _pageController = PageController(initialPage: 1);
+  final PageController _pageController = PageController(initialPage: 3);
 
   @override
   Widget build(BuildContext context) {
