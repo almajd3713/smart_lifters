@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/content/favorites/favorites.dart';
 import 'package:smart_lifters/src/content/home/home.dart';
 import 'package:smart_lifters/src/content/workout/workout.dart';
 
@@ -16,7 +17,7 @@ class ContentControllerState extends State<ContentController> {
   final List<Widget> _navbarPages = [
     const ScreenHome(),
     const ScreenWorkout(),
-    const ScreenHome(),
+    const ScreenFavorites(),
     const ScreenHome(),
   ];
 

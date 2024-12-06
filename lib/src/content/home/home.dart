@@ -17,21 +17,25 @@ class ScreenHome extends StatelessWidget {
       topMenuWorkout(context),
       recommendations(context, srcWidth),
       weeklyChallenge(context),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("Articles and Tips"),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CardExerciseBorderless(srcWidth: srcWidth),
-                CardExerciseBorderless(srcWidth: srcWidth),
-            ],
-          )
-        ],
-      )
+      bottomPart(srcWidth)
       
     ],);
+  }
+
+  Column bottomPart(double srcWidth) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("Articles and Tips"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            CardExerciseBorderless(srcWidth: srcWidth),
+              CardExerciseBorderless(srcWidth: srcWidth),
+          ],
+        )
+      ],
+    );
   }
 
   Padding weeklyChallenge(BuildContext context) {

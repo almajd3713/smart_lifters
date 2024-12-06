@@ -79,7 +79,7 @@ class CardInfoRow extends StatelessWidget {
                 const SizedBox(height: 5,),
                 if(type == "info") Text('Plank with Hip Twist',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  color: isDark ? Theme.of(context).colorScheme.onPrimaryContainer : Theme.of(context).colorScheme.onSecondaryContainer,
                   fontWeight: FontWeight.w300
                 ),)
                 else if(type == "exercise")                Row(
