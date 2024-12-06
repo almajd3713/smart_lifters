@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:smart_lifters/src/content/home/home.dart';
+import 'package:smart_lifters/src/content/workout/workout.dart';
 
 class ContentController extends StatefulWidget {
   const ContentController({super.key});
@@ -11,28 +12,39 @@ class ContentController extends StatefulWidget {
 }
 
 class ContentControllerState extends State<ContentController> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   final List<Widget> _navbarPages = [
     const ScreenHome(),
-    const ScreenHome(),
+    const ScreenWorkout(),
     const ScreenHome(),
     const ScreenHome(),
   ];
+
+  final PageController _pageController = PageController(initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: _navbarPages[_selectedIndex],
-        bottomNavigationBar: NavigationBar(
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: (i) => setState(() => _selectedIndex = i),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home_filled), label: 'Home',),
-            NavigationDestination(icon: Icon(Icons.fitness_center), label: 'Workout',),
-            NavigationDestination(icon: Icon(Icons.star), label: 'Favorites',),
-            NavigationDestination(icon: Icon(Icons.settings), label: 'Settings',)
+        body: PageView(
+          controller: _pageController,
+          children: _navbarPages,
+          onPageChanged: (i) => setState(() => _selectedIndex = i),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          selectedItemColor: Colors.black,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: false,
+          currentIndex: _selectedIndex,
+          onTap: (i) => {
+            _pageController.animateToPage(i, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut)
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home',),
+            BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: 'Workout',),
+            BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorites',),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings',)
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_lifters/src/core/constants/numbers.dart';
 import 'package:smart_lifters/src/core/widgets/card_exercise_borderless.dart';
 import 'package:smart_lifters/src/core/widgets/card_exercise_compact.dart';
+import 'package:smart_lifters/src/core/widgets/card_info_row.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -43,34 +44,7 @@ class ScreenHome extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Card.outlined(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            color: Theme.of(context).colorScheme.primaryContainer,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text("Weekly\nChallenge", 
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.w600
-                      ),),
-                      Text('Plank with Hip Twist',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.w300
-                      ),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(child: Image.asset('assets/images/workout_test.png'))
-              ],
-            ),
-          ),
+          child: CardInfoRowCompact()
         ),
       ),
     );
