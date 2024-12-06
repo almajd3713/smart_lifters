@@ -20,16 +20,20 @@ class _ScreenFavoritesState extends State<ScreenFavorites> {
     return Column(
       children: [
         topPart(context),
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.only(right: Constants.padding, left: Constants.padding),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return CardInfoRow(type: ['exercise', 'info'][Random().nextInt(2)], isDark: index % 2 == 0,);
-            },),
-        )
+        favoriteList()
       ],
     );
+  }
+
+  Expanded favoriteList() {
+    return Expanded(
+        child: ListView.builder(
+          padding: const EdgeInsets.only(right: Constants.padding, left: Constants.padding),
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return CardInfoRow(type: ['exercise', 'info'][Random().nextInt(2)], isDark: index % 2 == 0,);
+          },),
+      );
   }
 
    Padding topPart(BuildContext context) {
