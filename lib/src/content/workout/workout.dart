@@ -49,7 +49,7 @@ class _ScreenWorkoutState extends State<ScreenWorkout> {
             Text("Explore Different Workout Styles", style: Theme.of(context).textTheme.bodyLarge,),
             const SizedBox(height: 10,),
             CardInfoRow(),
-            CardInfoRow(),
+            CardInfoRow(isDark: true, type: "info",),
             CardInfoRow(),
           ],),
         )
