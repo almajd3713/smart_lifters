@@ -65,6 +65,11 @@ class SignUp extends StatelessWidget {
                         style:
                             TextStyle(color: Colors.white),
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -93,6 +98,11 @@ class SignUp extends StatelessWidget {
                         style:
                             TextStyle(color: Colors.white),
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -122,6 +132,11 @@ class SignUp extends StatelessWidget {
                         style:
                             TextStyle(color: Colors.white), // Text input style
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -151,6 +166,11 @@ class SignUp extends StatelessWidget {
                         style:
                             TextStyle(color: Colors.white), // Text input style
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -198,7 +218,9 @@ class SignUp extends StatelessWidget {
                     User user = await localData.get('user_signup');
                     user.name = name;
                     user.email = email;
+                    user.password = password;
                     localData.put('user', user);
+                    localData.put('user_default', user);
                     Navigator.pushNamed(context, '/home');
                   }
                   

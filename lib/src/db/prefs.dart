@@ -26,5 +26,6 @@ Future<void> checkFirstLaunch() async {
   if(isFirstLaunch == null || isFirstLaunch) {
     // await localData.put('is_first_launch', false);
     await localData.put('user', User());
+    await localData.put('user_default', User());
   }
 }

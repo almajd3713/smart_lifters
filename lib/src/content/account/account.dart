@@ -18,17 +18,46 @@ class _ScreenAccountState extends State<ScreenAccount> {
     User user = await localData.get('user');
     return user;
   }
-    final List<List> _optionBtns = [
+  
+  @override
+  Widget build(BuildContext context) {
+    List<List> _optionBtns = [
     ['Profile', 'account_black', () {}],
     ['Favorites', 'star_black', () {}],
     ['Privacy Policy', 'lock_black', () {}],
     ['Settings', 'settings_black', () {}],
     ['Help', 'support_black', () {}],
-    ['Logout', 'logout_black', () {}],
-  ];
-  
-  @override
-  Widget build(BuildContext context) {
+    ['Logout', 'logout_black', () {
+      showModalBottomSheet(
+        context: context, builder: (context) {
+        return SizedBox(
+          height: 250,
+          child: Padding(
+            padding: const EdgeInsets.all(Constants.padding / 1.5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Text("Are you sure you want to Logout?", textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineSmall),
+              const SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                FilledButton(onPressed: () {
+                  User user = localData.get('user');
+                  user.name = "NULL_USER";
+                  localData.put('user', user);
+                  Navigator.pushNamedAndRemoveUntil(context, '/onboarding/login', (route) => false,);}, child: Text("Yes")),
+                FilledButton(onPressed: () async {
+                  Navigator.pop(context);}, child: Text("No"))
+              ],)
+            ],),
+          ),
+        );
+      },);
+    }],
+    ];
     return FutureBuilder<User>(
       future: fetchUser(),
       builder: (context, snapshot) {
@@ -88,7 +117,7 @@ class _ScreenAccountState extends State<ScreenAccount> {
                 ),
                 const SizedBox(height: 30,),
                 ListView.builder(
-                  // physics: const NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: _optionBtns.length,
                   itemBuilder: (context, index) {
@@ -146,7 +175,7 @@ class _ScreenAccountState extends State<ScreenAccount> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(1000),
-                  child: Image.asset('assets/images/account_image.png', alignment: Alignment.center, width: 150, height: 150, fit: BoxFit.cover,)),
+                  child: Image.asset('assets/images/default_pfp.png', alignment: Alignment.center, width: 125, height: 125, fit: BoxFit.cover,)),
                   Text("${user.name}", style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w700
                   ),),

@@ -28,7 +28,7 @@ class _LaunchState extends State<Launch> {
     print(current_user);
     if(isFirstLaunch == null || isFirstLaunch) {
       Navigator.pushReplacementNamed(context, '/onboarding');
-    } else if(current_user!.name.isNotEmpty) {
+    } else if(current_user!.name != "NULL_USER") {
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       Navigator.pushReplacementNamed(context, '/onboarding/login');

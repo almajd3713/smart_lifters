@@ -71,6 +71,10 @@ class Login extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           hintText: 'Username or Email',
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+
+                          ),
                           labelStyle: TextStyle(
                             color: Colors.white,
                           ),
@@ -92,9 +96,15 @@ class Login extends StatelessWidget {
                       TextField(
                         controller: _passwordController,
                         obscureText: true,
+                        
                         style:
                             TextStyle(color: Colors.white), // Text input style
                         decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -125,30 +135,25 @@ class Login extends StatelessWidget {
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () async {
-                  User user = await localData.get('user');
+                  User user = await localData.get('user_default');
                   String name = _usernameController.text;
                   String password = _passwordController.text;
                   bool isUsernameMatch = name == user.name;
                   bool isEmailMatch = name == user.email;
+                  bool isPasswordMatched = password == user.password;
                   bool allFilled = name.isNotEmpty && password.isNotEmpty;
                   
                   if (!allFilled) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('You have not filled all the fields!'),
                     ));
-                  } else if((!isEmailMatch && !isUsernameMatch) || (password != user)) {
+                  } else if((isEmailMatch || isUsernameMatch) && isPasswordMatched) {
+                    localData.put('user', user);
+                    Navigator.pushNamed(context, '/home');
+                  } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Incorrect information. Check your info and try again.'),
                     ));
-                  } else {
-                    if(isEmailMatch) {
-                      user.email = name;
-                    } else if(isUsernameMatch) {
-                      user.name = name;
-                    }
-                    user.password = password;
-                    localData.put('user', user);
-                    Navigator.pushNamed(context, '/home');
                   }
                 },
                 style: ElevatedButton.styleFrom(

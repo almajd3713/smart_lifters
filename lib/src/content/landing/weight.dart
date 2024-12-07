@@ -11,10 +11,10 @@ class _WeightState extends State<Weight> {
   bool _isKg = true; // Default unit (KG)
 
   double toLB() {
-    return _selectedWeight * 2.204;
+    return (_selectedWeight * 2.204).roundToDouble();
   }
   double toKG() {
-    return _selectedWeight / 2.204;
+    return (_selectedWeight / 2.204).roundToDouble();
   }
 
   @override

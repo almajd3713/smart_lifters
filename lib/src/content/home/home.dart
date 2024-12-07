@@ -6,6 +6,8 @@ import 'package:smart_lifters/src/core/constants/numbers.dart';
 import 'package:smart_lifters/src/core/widgets/card_exercise_borderless.dart';
 import 'package:smart_lifters/src/core/widgets/card_exercise_compact.dart';
 import 'package:smart_lifters/src/core/widgets/card_info_row.dart';
+import 'package:smart_lifters/src/db/prefs.dart';
+import 'package:smart_lifters/src/db/schemas/user/user.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -112,45 +114,60 @@ class ScreenHome extends StatelessWidget {
       );
   }
 
-  Padding topPart(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: Constants.padding, left: Constants.padding, right: Constants.padding, bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(children: [
-                  Text("Hi, Galunga".toUpperCase(), style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 2
-                    ..color = Colors.black,
-                )),
-                Text("Hi, Galunga".toUpperCase(), style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.secondary,
-                )),
-              ],),
-              Text("It's time to go beyond your limits", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 13,
-                fontWeight: FontWeight.w600
-              ),)
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(onPressed: () {}, icon: Image.asset('assets/icons/search.png', scale: 1.6)),
-              IconButton(onPressed: () {}, icon: Image.asset('assets/icons/ring.png', scale: 1.6)),
-              IconButton(onPressed: () {
-                ContentController.pageController.animateToPage(3, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-              }, icon: Image.asset('assets/icons/account.png', scale: 1.6)),
-            ],
-          )
-        ],),
+  Future<User> getUser() async{
+    User user = await localData.get('user');
+    return user;
+  }
+
+  FutureBuilder topPart(BuildContext context) {
+    return FutureBuilder<User>(
+      future: getUser(),
+      builder: (context, snapshot) {
+        if(snapshot.connectionState == ConnectionState.waiting) {
+          return LinearProgressIndicator();
+        } 
+        else { 
+        return Padding(
+        padding: const EdgeInsets.only(top: Constants.padding, left: Constants.padding, right: Constants.padding, bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(children: [
+                    Text("Hi, ${snapshot.data!.name}".toUpperCase(), style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 2
+                      ..color = Colors.black,
+                  )),
+                  Text("Hi, ${snapshot.data!.name}".toUpperCase(), style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.secondary,
+                  )),
+                ],),
+                Text("It's time to go beyond your limits", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600
+                ),)
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(onPressed: () {}, icon: Image.asset('assets/icons/search.png', scale: 1.6)),
+                IconButton(onPressed: () {}, icon: Image.asset('assets/icons/ring.png', scale: 1.6)),
+                IconButton(onPressed: () {
+                  ContentController.pageController.animateToPage(3, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                }, icon: Image.asset('assets/icons/account.png', scale: 1.6)),
+              ],
+            )
+          ],),
+      );
+        }
+      },
     );
   }
 }

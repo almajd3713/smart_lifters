@@ -231,7 +231,7 @@ class _ScreenWorkoutState extends State<ScreenWorkout> {
     onPressed: () {
       setState(() => _selectedIndex = i);
       _pageController.animateToPage(i, duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
-  }, child: Text(word, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+  }, child: Text(word, style: Theme.of(context).textTheme.bodySmall!.copyWith(
     color: _selectedIndex == i ? Theme.of(context).primaryColor : Colors.white
   ),));
 }
