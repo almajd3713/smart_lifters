@@ -12,7 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      initialRoute: '/home',
+      initialRoute: '/launch',
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }
