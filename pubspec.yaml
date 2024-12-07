@@ -53,15 +53,15 @@ flutter:
 
   - family: LeagueSpartan
     fonts:
-      - asset: assets/fonts/LeagueSpartan/LeagueSpartan-Regular.ttf
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Regular.ttf
         weight: 400
-      - asset: assets/fonts/LeagueSpartan/LeagueSpartan-Medium.ttf
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Medium.ttf
         weight: 500
-      - asset: assets/fonts/LeagueSpartan/LeagueSpartan-SemiBold.ttf
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-SemiBold.ttf
         weight: 600
-      - asset: assets/fonts/LeagueSpartan/LeagueSpartan-Bold.ttf
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Bold.ttf
         weight: 700
-      - asset: assets/fonts/LeagueSpartan/LeagueSpartan-ExtraBold.ttf
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-ExtraBold.ttf
         weight: 800
-      - asset: assets/fonts/LeagueSpartan/LeagueSpartan-Black.ttf
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Black.ttf
         weight: 900
