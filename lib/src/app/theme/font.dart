@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppFonts {
-  static final TextStyle primary = GoogleFonts.poppins();
-  static final TextStyle secondary = GoogleFonts.leagueSpartan();
+  static const TextStyle primary = TextStyle(
+    fontFamily: 'Poppins'
+  );
+  static const TextStyle secondary = TextStyle(
+    fontFamily: 'LeagueSpartan'
+  );
 
-  static final TextTheme textScheme = TextTheme(
+  static const TextTheme textScheme = TextTheme(
     headlineLarge: primary,
     headlineMedium: primary,
     headlineSmall: primary,
