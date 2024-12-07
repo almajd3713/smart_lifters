@@ -7,7 +7,7 @@ class Height extends StatefulWidget {
 }
 
 class _HeightState extends State<Height> {
-  double _selectedHeight = 170.0; // Default height in cm
+  double _selectedHeight = 140.0; // Default height in cm
 
   @override
   Widget build(BuildContext context) {

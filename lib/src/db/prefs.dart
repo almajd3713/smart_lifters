@@ -22,7 +22,6 @@ Future<void> openBoxes() async {
 }
 
 Future<void> checkFirstLaunch() async {
-  await localData.clear();
   bool? isFirstLaunch = localData.get('is_first_launch');
   if(isFirstLaunch == null || isFirstLaunch) {
     // await localData.put('is_first_launch', false);

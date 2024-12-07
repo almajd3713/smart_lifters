@@ -3,106 +3,142 @@
 
 import 'package:flutter/material.dart';
 import 'package:smart_lifters/src/core/constants/numbers.dart';
+import 'package:smart_lifters/src/db/prefs.dart';
+import 'package:smart_lifters/src/db/schemas/user/user.dart';
 
 class ScreenAccount extends StatefulWidget {
-  const ScreenAccount({super.key});
+  ScreenAccount({super.key});
 
   @override
   State<ScreenAccount> createState() => _ScreenAccountState();
 }
 
 class _ScreenAccountState extends State<ScreenAccount> {
+  Future<User> fetchUser() async {
+    User user = await localData.get('user');
+    return user;
+  }
+    final List<List> _optionBtns = [
+    ['Profile', 'account_black', () {}],
+    ['Favorites', 'star_black', () {}],
+    ['Privacy Policy', 'lock_black', () {}],
+    ['Settings', 'settings_black', () {}],
+    ['Help', 'support_black', () {}],
+    ['Logout', 'logout_black', () {}],
+  ];
+  
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Column(children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor
+    return FutureBuilder<User>(
+      future: fetchUser(),
+      builder: (context, snapshot) {
+        if(snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else {
+          return SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Column(children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor
+            ),
+            child: Column(
+              children: [
+                topPart(context, snapshot.data as User),
+                infoPart(context, snapshot.data as User),
+              ],
+            ),
           ),
-          child: Column(
-            children: [
-              topPart(context),
-              infoPart(context),
-            ],
-          ),
-        ),
-          bottomPart(context)
-      ],),
+            bottomPart(context, snapshot.data as User, _optionBtns)
+        ],),
+      );
+        }
+      }
     );
   }
 
-  Padding bottomPart(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(Constants.padding),
-        child: Container(
-          transform: Matrix4.translationValues(0, -50, 0),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Theme.of(context).colorScheme.secondary
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                      const Column(children: [Text("75 KG", style: TextStyle(fontWeight: FontWeight.bold)), Text("Weight")]),
-                      VerticalDivider(color: Colors.white),
-                      Flexible(flex: 3, child: const Column(children: [Text("28", style: TextStyle(fontWeight: FontWeight.bold)), Text("Years Old")])),
-                      VerticalDivider(color: Colors.white),
-                      const Column(children: [Text("1.63 CM", style: TextStyle(fontWeight: FontWeight.bold)), Text("Height")]),
-                      ],  
+  SingleChildScrollView bottomPart(BuildContext context, User user, _optionBtns) {
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.all(Constants.padding),
+          child: Container(
+            transform: Matrix4.translationValues(0, -50, 0),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Theme.of(context).colorScheme.secondary
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                        Column(children: [Text("${user.weight} KG", style: TextStyle(fontWeight: FontWeight.bold)), Text("Weight")]),
+                        VerticalDivider(color: Colors.white),
+                        Flexible(flex: 3, child: Column(children: [Text("${user.age}", style: TextStyle(fontWeight: FontWeight.bold)), Text("Years Old")])),
+                        VerticalDivider(color: Colors.white),
+                        Column(children: [Text("${user.height} CM", style: TextStyle(fontWeight: FontWeight.bold)), Text("Height")]),
+                        ],  
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 30,),
-              optionButton(context, "Profile", "account_black"),
-              optionButton(context, "Favorites", "star_black"),
-              optionButton(context, "Privacy Policy", "lock_black"),
-              optionButton(context, "Settings", "settings_black"),
-              optionButton(context, "Help", "support_black"),
-              optionButton(context, "Logout", "logout_black"),
-            ],
+                const SizedBox(height: 30,),
+                ListView.builder(
+                  // physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: _optionBtns.length,
+                  itemBuilder: (context, index) {
+                    return optionButton(context, _optionBtns[index][0], _optionBtns[index][1], _optionBtns[index][2]);
+                },),
+                SizedBox(height: 200,)
+                // optionButton(context, "Profile", "account_black"),
+                // optionButton(context, "Favorites", "star_black"),
+                // optionButton(context, "Privacy Policy", "lock_black"),
+                // optionButton(context, "Settings", "settings_black"),
+                // optionButton(context, "Help", "support_black"),
+                // optionButton(context, "Logout", "logout_black"),
+              ],
+            ),
           ),
         ),
-      );
+    );
   }
 
-  Padding optionButton(BuildContext context, String content, String icon) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Theme.of(context).colorScheme.secondary),
-                        child: Image.asset('assets/icons/$icon.png', scale: 2,),
-                      ),
-                      const SizedBox(width: 20,),
-                      Text(content, style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 20
-                      ))
-                    ],
-                  ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right, color: Theme.of(context).colorScheme.secondary,), )
-        ],
+  GestureDetector optionButton(BuildContext context, String content, String icon, callback) {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Theme.of(context).colorScheme.secondary),
+                          child: Image.asset('assets/icons/$icon.png', scale: 2,),
+                        ),
+                        const SizedBox(width: 20,),
+                        Text(content, style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 20
+                        ))
+                      ],
+                    ),
+            IconButton(onPressed: callback, icon: Icon(Icons.arrow_right, color: Theme.of(context).colorScheme.secondary,), )
+          ],
+        ),
       ),
     );
   }
 
-  Padding infoPart(BuildContext context) {
+  Padding infoPart(BuildContext context, User user) {
     return Padding(
             padding: const EdgeInsets.only(
                   right: Constants.padding, left: Constants.padding, bottom: Constants.padding),
@@ -111,10 +147,10 @@ class _ScreenAccountState extends State<ScreenAccount> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(1000),
                   child: Image.asset('assets/images/account_image.png', alignment: Alignment.center, width: 150, height: 150, fit: BoxFit.cover,)),
-                  Text("The Reel Galunga", style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  Text("${user.name}", style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w700
                   ),),
-                  const Text("Reeling.one@gmail.com"),
+                  Text("${user.email}"),
                   RichText(
                     text: const TextSpan(
                       style: TextStyle(
@@ -131,7 +167,7 @@ class _ScreenAccountState extends State<ScreenAccount> {
           );
   }
 
-  Padding topPart(BuildContext context) {
+  Padding topPart(BuildContext context, User user) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Row(

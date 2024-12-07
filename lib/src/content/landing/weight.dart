@@ -7,7 +7,7 @@ class Weight extends StatefulWidget {
 }
 
 class _WeightState extends State<Weight> {
-  double _selectedWeight = 75.0; // Default weight
+  double _selectedWeight = 40.0; // Default weight
   bool _isKg = true; // Default unit (KG)
 
   double toLB() {

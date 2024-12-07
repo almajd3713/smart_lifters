@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/db/prefs.dart';
+import 'package:smart_lifters/src/db/schemas/user/user.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
@@ -176,11 +178,11 @@ class SignUp extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   String name = _usernameController.text;
-                  String email = _usernameController.text;
-                  String password = _usernameController.text;
-                  String passwordConfirm = _usernameController.text;
+                  String email = _emailController.text;
+                  String password = _passwordController.text;
+                  String passwordConfirm = _passwordConfirmController.text;
                   bool allFilled = name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && passwordConfirm.isNotEmpty;
                   bool passwordMatch = password == passwordConfirm;
 
@@ -193,6 +195,10 @@ class SignUp extends StatelessWidget {
                       content: Text('Passwords do not match!')
                     ));
                   } else {
+                    User user = await localData.get('user');
+                    user.name = name;
+                    user.email = email;
+                    localData.put('user', user);
                     Navigator.pushNamed(context, '/home');
                   }
                   

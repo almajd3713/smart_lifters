@@ -9,27 +9,28 @@ import 'package:smart_lifters/src/content/workout/workout.dart';
 class ContentController extends StatefulWidget {
   const ContentController({super.key});
 
+  static final PageController pageController = PageController(initialPage: 0);
+
   @override
   State<ContentController> createState() => ContentControllerState();
 }
 
 class ContentControllerState extends State<ContentController> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
   final List<Widget> _navbarPages = [
     const ScreenHome(),
     const ScreenWorkout(),
     const ScreenFavorites(),
-    const ScreenAccount(),
+    ScreenAccount(),
   ];
 
-  final PageController _pageController = PageController(initialPage: 3);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: PageView(
-          controller: _pageController,
+          controller: ContentController.pageController,
           children: _navbarPages,
           onPageChanged: (i) => setState(() => _selectedIndex = i),
         ),
@@ -40,7 +41,7 @@ class ContentControllerState extends State<ContentController> {
           showUnselectedLabels: false,
           currentIndex: _selectedIndex,
           onTap: (i) => {
-            _pageController.animateToPage(i, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut)
+             ContentController.pageController.animateToPage(i, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut)
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home',),

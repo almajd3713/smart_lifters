@@ -4,6 +4,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/content/home_controller.dart';
 import 'package:smart_lifters/src/core/constants/numbers.dart';
 import 'package:smart_lifters/src/core/widgets/card_info_row.dart';
 
@@ -92,7 +93,11 @@ class _ScreenFavoritesState extends State<ScreenFavorites> {
                   onPressed: () {},
                   icon: Image.asset('assets/icons/ring.png', scale: 1.6)),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                        ContentController.pageController.animateToPage(3,
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeInOut);
+                  },
                   icon:
                       Image.asset('assets/icons/account.png', scale: 1.6)),
             ],

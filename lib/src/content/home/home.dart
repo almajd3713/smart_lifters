@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/content/home_controller.dart';
 import 'package:smart_lifters/src/core/constants/numbers.dart';
 import 'package:smart_lifters/src/core/widgets/card_exercise_borderless.dart';
 import 'package:smart_lifters/src/core/widgets/card_exercise_compact.dart';
@@ -12,14 +13,16 @@ class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var srcWidth = MediaQuery.of(context).size.width;
-    return Column(children: [
-      topPart(context),
-      topMenuWorkout(context),
-      recommendations(context, srcWidth),
-      weeklyChallenge(context),
-      bottomPart(srcWidth)
-      
-    ],);
+    return SingleChildScrollView(
+      child: Column(children: [
+        topPart(context),
+        topMenuWorkout(context),
+        recommendations(context, srcWidth),
+        weeklyChallenge(context),
+        bottomPart(srcWidth)
+        
+      ],),
+    );
   }
 
   Column bottomPart(double srcWidth) {
@@ -142,7 +145,9 @@ class ScreenHome extends StatelessWidget {
             children: [
               IconButton(onPressed: () {}, icon: Image.asset('assets/icons/search.png', scale: 1.6)),
               IconButton(onPressed: () {}, icon: Image.asset('assets/icons/ring.png', scale: 1.6)),
-              IconButton(onPressed: () {}, icon: Image.asset('assets/icons/account.png', scale: 1.6)),
+              IconButton(onPressed: () {
+                ContentController.pageController.animateToPage(3, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+              }, icon: Image.asset('assets/icons/account.png', scale: 1.6)),
             ],
           )
         ],),

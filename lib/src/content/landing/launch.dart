@@ -37,19 +37,15 @@ class _LaunchState extends State<Launch> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.yellow,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.fitness_center,
-              size: 100,
-              color: Colors.black,
-            ),
-            SizedBox(height: 20),
-            Text(
+            Image.asset('assets/favicon_black.png', width: 100,),
+            const SizedBox(height: 20),
+            const Text(
               'SMART LIFTERS',
               style: TextStyle(
                 fontSize: 24,
