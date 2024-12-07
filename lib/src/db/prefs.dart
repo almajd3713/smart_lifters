@@ -22,9 +22,11 @@ Future<void> openBoxes() async {
 }
 
 Future<void> checkFirstLaunch() async {
+  await localData.clear();
+  localData.put('is_first_launch', true);
   bool? isFirstLaunch = localData.get('is_first_launch');
-  if(isFirstLaunch == null || isFirstLaunch) {
-    await localData.put('is_first_launch', false);
-
+  if(isFirstLaunch == null || isFirstLaunch || true) {
+    // await localData.put('is_first_launch', false);
+    await localData.put('user', User());
   }
 }

@@ -5,30 +5,38 @@ part 'user.g.dart';
 @HiveType(typeId: 1)
 class User {
   @HiveField(0)
-  final String name;
+  String name;
 
   @HiveField(1)
-  final String email;
+  String email;
   // types: exercise, info, etc
 
   @HiveField(2)
-  final String mobileNumber;
+  String gender;
 
   @HiveField(3)
-  final DateTime birthDate;
+  String mobileNumber;
 
   @HiveField(4)
-  final int weight;
+  DateTime birthDate;
 
   @HiveField(5)
-  final double height;
+  double weight;
+
+  @HiveField(6)
+  double height;
+
+  @HiveField(7)
+  int age;
 
   User({
-    required this.name,
-    required this.email,
-    required this.mobileNumber,
-    required this.birthDate,
-    required this.weight,
-    required this.height
-  });
+    this.name = "",
+    this.email = "",
+    this.gender = 'male',
+    this.age = 10,
+    this.mobileNumber = "",
+    this.weight = 50,
+    this.height = 160
+  })
+  : birthDate =  DateTime.now();
 }
