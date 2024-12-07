@@ -3,7 +3,7 @@ import 'package:smart_lifters/src/app/app.dart';
 import 'package:smart_lifters/src/db/prefs.dart';
 
 void main() async {
-  await init_prefs();
+  await initPrefs();
   runApp(const MainApp());
 }
 
