@@ -53,9 +53,9 @@ class _HeightState extends State<Height> {
           SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
-              var user = localData.get('user');
+              var user = localData.get('user_signup');
               user.height = _selectedHeight;
-              localData.put('user', user);
+              localData.put('user_signup', user);
               Navigator.pushNamed(context, '/onboarding/goal'); // Adjust route as needed
             },
             style: ElevatedButton.styleFrom(

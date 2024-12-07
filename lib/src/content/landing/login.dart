@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/db/prefs.dart';
+import 'package:smart_lifters/src/db/schemas/user/user.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +64,7 @@ class Login extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
+                        controller: _usernameController,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -84,6 +90,7 @@ class Login extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         style:
                             TextStyle(color: Colors.white), // Text input style
@@ -117,8 +124,32 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                onPressed: () async {
+                  User user = await localData.get('user');
+                  String name = _usernameController.text;
+                  String password = _passwordController.text;
+                  bool isUsernameMatch = name == user.name;
+                  bool isEmailMatch = name == user.email;
+                  bool allFilled = name.isNotEmpty && password.isNotEmpty;
+                  
+                  if (!allFilled) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('You have not filled all the fields!'),
+                    ));
+                  } else if((!isEmailMatch && !isUsernameMatch) || (password != user)) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Incorrect information. Check your info and try again.'),
+                    ));
+                  } else {
+                    if(isEmailMatch) {
+                      user.email = name;
+                    } else if(isUsernameMatch) {
+                      user.name = name;
+                    }
+                    user.password = password;
+                    localData.put('user', user);
+                    Navigator.pushNamed(context, '/home');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

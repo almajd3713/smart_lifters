@@ -86,9 +86,9 @@ class _WeightState extends State<Weight> {
               double finalWeight = 
                 _isKg ? _selectedWeight
               : toKG();
-              var user = localData.get('user');
+              var user = localData.get('user_signup');
               user.weight = finalWeight;
-              localData.put('user', user);
+              localData.put('user_signup', user);
               Navigator.pushNamed(context, '/onboarding/height'); // Adjust route as needed
             },
             style: ElevatedButton.styleFrom(

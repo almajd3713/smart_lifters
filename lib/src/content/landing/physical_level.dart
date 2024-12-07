@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:smart_lifters/src/app/router/router.dart';
 import 'package:smart_lifters/src/db/prefs.dart';
 
 class PhysicalLevel extends StatefulWidget {
+  const PhysicalLevel({super.key});
+
   @override
   _PhysicalLevelState createState() => _PhysicalLevelState();
 }
@@ -22,12 +23,12 @@ class _PhysicalLevelState extends State<PhysicalLevel> {
             children: [
               // Back Button
               IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () => Navigator.pop(context),
               ),
               const SizedBox(height: 10),
               // Title
-              Text(
+              const Text(
                 "Physical Activity Level",
                 style: TextStyle(
                   fontSize: 24,
@@ -64,7 +65,6 @@ class _PhysicalLevelState extends State<PhysicalLevel> {
                     // Navigate to next screen
                     localData.put('is_first_launch', false);
                     var launch = localData.get('is_first_launch');
-                    print(launch);
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       '/onboarding/login', // Replace Goal() with the new page you want
@@ -80,8 +80,8 @@ class _PhysicalLevelState extends State<PhysicalLevel> {
                   ),
                   elevation: 5,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15.0),
                   child: Center(
                     child: Text(
                       "Finish",

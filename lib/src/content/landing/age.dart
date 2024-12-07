@@ -53,9 +53,9 @@ class _AgeState extends State<Age> {
           SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
-              var user = localData.get('user');
+              var user = localData.get('user_signup');
               user.age = _selectedAge;
-              localData.put('user', user);
+              localData.put('user_signup', user);
               Navigator.pushNamed(context, '/onboarding/weight');
             },
             style: ElevatedButton.styleFrom(

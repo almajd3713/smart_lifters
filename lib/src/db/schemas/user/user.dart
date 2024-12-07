@@ -29,14 +29,18 @@ class User {
   @HiveField(7)
   int age;
 
+  @HiveField(8)
+  String password;
+
   User({
-    this.name = "",
-    this.email = "",
-    this.gender = 'male',
+    this.name = "John Doe",
+    this.email = "nothinghere@gmail.com",
+    this.gender = 'Male',
     this.age = 10,
-    this.mobileNumber = "",
+    this.mobileNumber = "+213652293781",
     this.weight = 50,
-    this.height = 160
+    this.height = 160,
+    this.password = "zabunzoPrime"
   })
   : birthDate =  DateTime.now();
 }

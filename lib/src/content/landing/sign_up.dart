@@ -195,7 +195,7 @@ class SignUp extends StatelessWidget {
                       content: Text('Passwords do not match!')
                     ));
                   } else {
-                    User user = await localData.get('user');
+                    User user = await localData.get('user_signup');
                     user.name = name;
                     user.email = email;
                     localData.put('user', user);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_lifters/src/db/prefs.dart';
+import 'package:smart_lifters/src/db/schemas/user/user.dart';
 
 class Gender extends StatefulWidget {
   @override
@@ -65,9 +66,9 @@ class _GenderState extends State<Gender> {
           ElevatedButton(
             onPressed: _selectedGender != null
                 ? () {
-                    var user = localData.get('user');
-                    user.gender = _selectedGender;
-                    localData.put('user', user);
+                    User user = User();
+                    user.gender = _selectedGender ?? "Male";
+                    localData.put('user_signup', user);
                     Navigator.pushNamed(context, '/onboarding/age');
                   }
                 : null, // Disable button if no gender is selected
