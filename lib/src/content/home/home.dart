@@ -132,7 +132,7 @@ class ScreenHome extends StatelessWidget {
                 )),
               ],),
               Text("It's time to go beyond your limits", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: FontWeight.w600
               ),)
             ],

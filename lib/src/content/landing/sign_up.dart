@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SignUp extends StatelessWidget {
-  const SignUp({Key? key}) : super(key: key);
+  SignUp({super.key});
 
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +59,7 @@ class SignUp extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
+                        controller: _usernameController,
                         style:
                             TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -82,6 +87,7 @@ class SignUp extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
+                        controller: _emailController,
                         style:
                             TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -109,6 +115,7 @@ class SignUp extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
+                        controller: _passwordController,
                         obscureText: true,
                         style:
                             TextStyle(color: Colors.white), // Text input style
@@ -137,6 +144,7 @@ class SignUp extends StatelessWidget {
                         height: 15,
                       ),
                       TextField(
+                        controller: _passwordConfirmController,
                         obscureText: true,
                         style:
                             TextStyle(color: Colors.white), // Text input style
@@ -169,7 +177,25 @@ class SignUp extends StatelessWidget {
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/gender');
+                  String name = _usernameController.text;
+                  String email = _usernameController.text;
+                  String password = _usernameController.text;
+                  String passwordConfirm = _usernameController.text;
+                  bool allFilled = name.isNotEmpty && email.isNotEmpty && password.isNotEmpty && passwordConfirm.isNotEmpty;
+                  bool passwordMatch = password == passwordConfirm;
+
+                  if(!allFilled) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('You have not filled all the fields!'),
+                    ));
+                  } else if(!passwordMatch) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Passwords do not match!')
+                    ));
+                  } else {
+                    Navigator.pushNamed(context, '/home');
+                  }
+                  
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

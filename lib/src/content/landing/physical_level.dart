@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_lifters/src/app/router/router.dart';
+import 'package:smart_lifters/src/db/prefs.dart';
 
 class PhysicalLevel extends StatefulWidget {
   @override
@@ -57,10 +58,13 @@ class _PhysicalLevelState extends State<PhysicalLevel> {
               ),
               // Continue Button
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   // Use _selectedLevel to pass the selected activity level to the next screen
                   if (_selectedLevel != null) {
                     // Navigate to next screen
+                    localData.put('is_first_launch', false);
+                    var launch = localData.get('is_first_launch');
+                    print(launch);
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       '/onboarding/login', // Replace Goal() with the new page you want
