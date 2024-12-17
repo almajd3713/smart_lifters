@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_lifters/src/app/router/router.dart';
 import 'package:smart_lifters/src/app/theme/theme.dart';
 
@@ -9,11 +10,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      initialRoute: '/launch',
-      onGenerateRoute: (settings) => generateRoute(settings),
+    return MultiBlocProvider(
+      providers: [],
+      child: MaterialApp(
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        initialRoute: '/launch',
+        onGenerateRoute: (settings) => generateRoute(settings),
+      ),
     );
   }
 }
